@@ -33,7 +33,7 @@ $$
 #### 判别方法
 
 $$
-若 f(x^*) = 0, f'(x^*) = 0 , \dots ,f^{(n-1)}(0) = 0 且 f^{n}(x^*) =0 
+若 f(x^*) = 0, f'(x^*) = 0 , \dots ,f^{(n-1)}(0) = 0 且 f^{n}(x^*) =0
 $$
 
 则称$x^*是f(x) = 0$ 的**n重根**
@@ -123,26 +123,74 @@ $$
 
 
 
+## Aitken 加速迭代法
+
+不妨设 $\overline{x_{k+1}} = \varphi(x_k)$ , $\overline{\overline{x_{k+1}}} = \varphi(\overline{x_{K+1}})$ 则有迭代公式：
+$$
+x_{k+1} = \overline{\overline{x_{k+1}}} - \frac{(\overline{\overline{x_{k+1}}} - \overline{x_{k+1}})^2} {\overline{\overline{x_{k+1}}}-2\overline{x_{k+1}}+x_k}
+$$
+证明如下：
+
+![](img/2-2.jpg)
+
+## Newton 迭代法
+
+### 基本思想
+
+目标求解方程是$f(x) = 0$ 则令$f(x)$作为求解的目标有如下迭代公式：
+$$
+x_k = x_{k-1} - \frac{f(x_{k-1})}{f'(x_{k-1})}, k = 1,2,3,\dots
+$$
+本质上是用一次函数近似模拟了目标函数的下降趋势，并且**可以证明是二阶收敛**
+
+### Newton 迭代方法推广
+
+向量型Newton迭代公式：
+$$
+\mathbf{X_{k+1}} = \mathbf{X_k} - [F'(\mathbf{X_k})^{-1}]F(\mathbf{X_k})
+$$
+其中$F'(\mathbf{X})$表示向量函数的**雅可比行列式**
+
+同样为节省每步计算jacobi矩阵的时间，有如下简化的Newton迭代公式
+$$
+\mathbf{X_{k+1}} = \mathbf{X_k} - [F'(\mathbf{X_0})^{-1}]F(\mathbf{X_k})
+$$
+
+### Newton迭代方法改进
+
+考虑引入一个**下山因子**$\lambda: 0 < \lambda \le 1$， 从而产生Newton下山法:
+
+ 
+$$
+\mathbf{X_{k+1}} = \mathbf{X_k} -\lambda [F'(\mathbf{X_k})^{-1}]F(\mathbf{X_k})
+$$
+在实际计算中，$\lambda$可依次取$1,\frac{1}{2},\frac{1}{2^2},\dots,\frac{1}{2^k},\dots$
+
+## 迭代方法的收敛阶
+
+### P阶收敛
+
+当$k \rightarrow inf $ 有
+$$
+\frac{|e_{k+1}|}{|e_k^p|}  \rightarrow C (C \neq 0, 且为常数)
+$$
+则称迭代过程是p阶收敛的
+
+- 当$ p = 1, 0< C < 1$时，称作线性收敛
+- 当 $1 < p < 2$ 时，称为超线性收敛
+- 当 $p = 2$ 称作 平方收敛 
+
+### 判断方法
+
+设$\varphi(x)$在其不动点$x^*$的某邻域内p阶连续可微，且
+$$
+\varphi^{(i)}(x^*) = 0 (i = 1,2,\dots, p - 1),\varphi^{(p)}(x^*) \neq 0
+$$
+则可以判断是p阶收敛的
 
 
 
+## 总结
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![](img/2-3.jpg)
 
