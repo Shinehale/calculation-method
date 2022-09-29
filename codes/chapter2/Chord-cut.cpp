@@ -18,7 +18,6 @@ double chordCut( const double& x0, const double& x1){
 	double x = x1, xNext = x1 - ( x - xPre ) / ( func( x ) - func( xPre ) ) * func( x );
 	while ( abs( x - xPre) > eps ){
 		xPre = x ;
-		cout << x << endl;
 		x = xNext;
 		xNext = x - ( x - xPre ) / ( func( x ) - func( xPre ) ) * func( x );
 		
@@ -27,7 +26,7 @@ double chordCut( const double& x0, const double& x1){
 }
 
 int main(){
-	cout << "The function zero point is : ";
+	cout << "The function's zero point is : ";
 	printf("%.10lf\n", chordCut( 1.0, 1.5) );
 	return 0; 
 }
