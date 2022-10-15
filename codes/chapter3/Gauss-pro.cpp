@@ -1,8 +1,7 @@
-// Trivial generation
+// advanced generation with Completely selected principal element method
 #include<iostream>
 #include<algorithm>
 #include<vector>
-#include<cstdio>
 
 using namespace std;
 
@@ -11,12 +10,19 @@ void push_forward( vector<vector<double>>& A, vector<double>& B ){
 	int pos = 0;
 	for ( int times = 1; times < size; ++times ){
 		for ( int line = pos + 1; line < size; ++line ){
+			int tar = pos ;
+			for ( int line = pos + 1; line < size; ++line ) 
+			if ( abs(A[line][pos]) > abs(A[pos][pos]) ) tar = line;
+			swap( A[tar], A[pos] );
+			swap( B[tar], B[pos] );
 			double coeff = - A[line][pos] / A[times-1][pos];
 			for ( int j = pos; j < size; ++j )A[line][j] += coeff * A[times - 1][j];
 			B[line] += B[times - 1] * coeff;
 		}
 		++pos;
 	}
+
+
 }
 
 vector<double> back_subst( const vector<vector<double>>& A, const vector<double>& B ){
@@ -48,24 +54,18 @@ int main(){
 		B.push_back( val );
 	}
 	push_forward( A, B );
-	for ( int i = 0; i < size; ++i ){
-		for ( int j = 0; j < size; ++j )
-			cout << A[i][j] << " ";
-		cout << endl;
-	}
+	// for ( int i = 0; i < size; ++i ){
+	// 	for ( int j = 0; j < size; ++j )
+	// 		cout << A[i][j] << " ";
+	// 	cout << endl;
+	// }
 	X = back_subst( A, B );  
 	for ( int i = 0; i < (int)X.size(); ++i ) cout << "x" << i+1 << " = ", printf("%.10lf\n", X[i] );
 	return 0;
 }
 /*
-4
-3 2 -1 2  -2
-1 4 0 2  1
-2 1 2 -1 3
-1 1 -1 3 4
-
 3
-0.001 2.000 3.000 1.000
--1.000 3.712 4.623 2.000
--2.000 1.070 5.643 3.000
+1 2 3 4
+1 2 4 5
+2 3 4 6
 */
