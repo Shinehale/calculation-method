@@ -94,7 +94,6 @@ int main(){
 	cout << " the answer matrix X is :" << endl;
 	for ( int i = 0; i < size; ++i ) cout << X[i] << " ";
 	cout << endl;
-	return 0;
 
 	return 0;
 }
